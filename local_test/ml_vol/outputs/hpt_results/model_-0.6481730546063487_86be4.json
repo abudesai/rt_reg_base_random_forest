@@ -1,0 +1,9 @@
+{
+    "loss": -0.6481730546063487,
+    "model_name": "model_-0.6481730546063487_86be4",
+    "space": {
+        "max_features": 1,
+        "max_samples": 0.5,
+        "n_estimators": 100
+    }
+}
