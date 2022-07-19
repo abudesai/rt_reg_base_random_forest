@@ -17,7 +17,6 @@ MODEL_NAME = "Random_forest"
 class Random_forest(): 
     
     def __init__(self, n_estimators = 100, max_features = 1, max_samples = 0.5, **kwargs) -> None:
-        super(Random_forest, self).__init__(**kwargs)
         self.n_estimators = int(n_estimators)
         self.max_features = int(max_features)
         self.max_samples= np.float(max_samples)
