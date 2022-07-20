@@ -9,12 +9,10 @@ warnings.filterwarnings('ignore')
 from sklearn.ensemble import RandomForestRegressor
 
 
-model_params_fname = "model_params.save"
 model_fname = "model.save"
-history_fname = "history.json"
 MODEL_NAME = "Random_forest"
 
-class Random_forest(): 
+class Regressor(): 
     
     def __init__(self, n_estimators = 100, max_features = 1, max_samples = 0.5, **kwargs) -> None:
         self.n_estimators = int(n_estimators)
@@ -26,8 +24,9 @@ class Random_forest():
         
         
     def build_model(self): 
-        model = RandomForestRegressor(n_estimators= self.n_estimators, max_features= self.max_features, max_samples= self.max_samples, random_state=42, criterion='squared_error',bootstrap= True, 
-        oob_score= True, n_jobs=-1, verbose=0)
+        model = RandomForestRegressor(n_estimators= self.n_estimators, max_features= self.max_features, 
+                                      max_samples= self.max_samples, random_state=42, 
+                                      criterion='squared_error',bootstrap= True, oob_score= True, n_jobs=-1, verbose=0)
         return model
     
     
@@ -56,19 +55,10 @@ class Random_forest():
 
     
     def save(self, model_path): 
-        model_params = {
-            "n_estimators": self.n_estimators,
-            "max_features": self.max_features
-            
-        }
-        joblib.dump(model_params, os.path.join(model_path, model_params_fname))
-
         joblib.dump(self.model, os.path.join(model_path, model_fname))
 
     @classmethod
     def load(cls, model_path): 
-        model_params = joblib.load(os.path.join(model_path, model_params_fname))
-
         rf = joblib.load(os.path.join(model_path, model_fname))
         return rf
 
@@ -79,15 +69,10 @@ def save_model(model, model_path):
 
 def load_model(model_path): 
     try: 
-        model = Random_forest.load(model_path)        
+        model = Regressor.load(model_path)        
     except: 
         raise Exception(f'''Error loading the trained {MODEL_NAME} model. 
             Do you have the right trained model in path: {model_path}?''')
     return model
 
 
-def save_training_history(history, f_path): 
-    hist_df = pd.DataFrame(history.history) 
-    hist_json_file = os.path.join(f_path, history_fname)
-    with open(hist_json_file, mode='w') as f:
-        hist_df.to_json(f)
