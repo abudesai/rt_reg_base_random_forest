@@ -1,6 +1,7 @@
 
 local_test/ml_vol/
 **/test_results/
+**/hpt_results/
 **/artifacts
 ml_vol/outputs/
 **/examples/**/*.txt

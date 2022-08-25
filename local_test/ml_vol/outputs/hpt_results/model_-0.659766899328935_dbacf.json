@@ -1,9 +1,0 @@
-{
-    "loss": -0.659766899328935,
-    "model_name": "model_-0.659766899328935_dbacf",
-    "space": {
-        "max_features": 4.7834971726576665,
-        "max_samples": 0.13135943404024505,
-        "n_estimators": 1000.0
-    }
-}
