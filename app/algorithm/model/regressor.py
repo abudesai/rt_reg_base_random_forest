@@ -14,7 +14,7 @@ MODEL_NAME = "reg_base_random_forest_sklearn"
 
 class Regressor(): 
     
-    def __init__(self, n_estimators = 200, max_features = 1, max_samples = 0.5, **kwargs) -> None:
+    def __init__(self, n_estimators = 250, max_features = 1, max_samples = 0.5, **kwargs) -> None:
         self.n_estimators = int(n_estimators)
         self.max_features = int(max_features)
         self.max_samples= np.float(max_samples)
