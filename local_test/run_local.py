@@ -91,9 +91,7 @@ def copy_example_files(dataset_name):
     shutil.copyfile(f"{local_datapath}/{dataset_name}/{dataset_name}_train.csv", os.path.join(train_data_path, f"{dataset_name}_train.csv"))    
     # test data     
     shutil.copyfile(f"{local_datapath}/{dataset_name}/{dataset_name}_test.csv", os.path.join(test_data_path, f"{dataset_name}_test.csv"))    
-    # hyperparameters
-    shutil.copyfile("./examples/hyperparameters.json", os.path.join(hyper_param_path, "hyperparameters.json"))
-
+    
 
 def run_HPT(num_hpt_trials):
     # Read data
@@ -123,12 +121,10 @@ def load_and_test_algo():
     test_data = utils.get_data(test_data_path)
     # read data config
     data_schema = utils.get_data_schema(data_schema_path)
-    # set id and target fields for scoring
-    set_id_and_target_cols(data_schema)
     # instantiate the trained model
-    predictor = model_server.ModelServer(model_artifacts_path)
+    predictor = model_server.ModelServer(model_artifacts_path, data_schema)
     # make predictions
-    predictions = predictor.predict(test_data, data_schema)
+    predictions = predictor.predict(test_data)
     # save predictions
     predictions.to_csv(os.path.join(testing_outputs_path, "test_predictions.csv"), index=False)
     # score the results
@@ -207,12 +203,12 @@ def run_train_and_test(dataset_name, run_hpt, num_hpt_trials):
 
 if __name__ == "__main__":
     
-    num_hpt_trials = 30
+    num_hpt_trials = 10
     run_hpt_list = [False, True]
-    # run_hpt_list = [False]
+    run_hpt_list = [False]
     
-    datasets = ["abalone", "auto_prices", "computer_activity", "heart_disease", "white_wine", "ailerons"]
-    # datasets = ["heart_disease"]
+    datasets = ["abalone", "ailerons", "auto_prices", "computer_activity", "diamond", "energy", "heart_disease", "house_prices", "medical_costs", "white_wine" ]
+    datasets = ["abalone"]
     
     for run_hpt in run_hpt_list:
         all_results = []
